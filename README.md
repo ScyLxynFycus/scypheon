@@ -5,144 +5,58 @@
 <h1 align="center">Scypheon</h1>
 
 <p align="center">
-  <strong>On-Device Agentic AI Framework for Android</strong>
+  <strong>On-Device Agentic AI for Android</strong><br>
+  <em>Democratizing AI for Everyone</em>
 </p>
 
 <p align="center">
-  <a href="#architecture">Architecture</a> •
-  <a href="#features">Features</a> •
-  <a href="#technical-specs">Technical Specs</a> •
-  <a href="#roadmap">Roadmap</a> •
-  <a href="#limitations">Limitations</a>
+  <a href="STORY.md">Our Story</a> — From Kaggle Gemma Challenge to Scypheon
 </p>
 
 ---
 
-## Overview
+## Mission
 
-Scypheon is an on-device AI agent framework that runs entirely on Android devices without cloud dependencies. The system implements a complete agent loop with tool calling, memory persistence, and accessibility integrations.
+We believe AI should be accessible to everyone—regardless of ability, connectivity, or income.
 
-**Core Philosophy:** All AI inference happens locally. Zero telemetry. User data never leaves the device.
+Scypheon is built from the ground up to serve people who are often left behind by technology:
 
-## Architecture
+- **Blind & Low Vision** — AI-powered navigation and environment understanding
+- **Deaf & Hard of Hearing** — Real-time sound awareness and captioning
+- **Motor Impairments** — Hands-free device control
+- **Elderly** — Simplified AI interaction with safety features
+- **Low Connectivity Areas** — Works 100% offline, no internet required
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Scypheon Agent Core                     │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │   Router    │→ │   Planner   │→ │  Agentic Executor   │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-│         ↓               ↓                    ↓              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │  Memory DB  │  │ Tool Router │  │  Reflection Engine  │  │
-│  │ (SQLCipher) │  │             │  │                     │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-├─────────────────────────────────────────────────────────────┤
-│                    LLM Inference Layer                       │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  llama.cpp (GGUF) / MediaPipe GenAI (GPU accelerated) │   │
-│  │  Supported: Qwen 0.5B-3B, DeepSeek, Llama 3.2         │   │
-│  └──────────────────────────────────────────────────────┘   │
-├─────────────────────────────────────────────────────────────┤
-│                   Accessibility Layer                        │
-│  ┌────────────┐  ┌────────────┐  ┌────────────────────┐    │
-│  │ Navigation │  │  Live      │  │  Motor Assistant   │    │
-│  │ Assistant  │  │  Captioner │  │  (Head Tracking)   │    │
-│  └────────────┘  └────────────┘  └────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
-```
+## Core Principles
 
-## Features
+| Principle | What It Means |
+|-----------|---------------|
+| **Privacy First** | All AI runs on-device. Your data never leaves your phone. |
+| **Accessibility Native** | Not an afterthought—built into every feature. |
+| **No Cloud Required** | Works offline. No subscription. No data harvesting. |
+| **Open to All** | Designed for users in developing regions with limited connectivity. |
 
-### Agent System
-| Component | Status | Description |
-|-----------|--------|-------------|
-| Agent Loop | ✅ Implemented | Observe → Plan → Execute → Reflect cycle |
-| Tool Calling | ✅ Implemented | 15+ integrated tools (calendar, search, math, etc.) |
-| Memory System | ✅ Implemented | Hybrid keyword + vector search with SQLCipher |
-| Context Management | ✅ Implemented | Token-aware sliding window with priority |
-| Failure Recovery | ✅ Implemented | Recursion guard, error handling, graceful degradation |
+## What Scypheon Can Do
 
-### On-Device Inference
-| Component | Status | Description |
-|-----------|--------|-------------|
-| llama.cpp Integration | ✅ Implemented | GGUF model loading via JNI |
-| MediaPipe GenAI | ✅ Implemented | GPU acceleration on supported devices |
-| Model Support | ✅ Tested | Qwen 3B, DeepSeek 1.5B, Llama 3.2 1B |
-| Memory Footprint | ✅ Optimized | ~2GB RAM for 3B model |
+- **Agentic Automation** — AI that can operate apps on your behalf
+- **Humanitarian Accessibility** — Enterprise-grade assistive technology
+- **Intelligent Assistant** — On-device LLM for private conversations
+- **Proactive Care** — Medication reminders, health monitoring, emergency alerts
 
-### Accessibility Suite
-| Feature | Target Users | Status |
-|---------|-------------|--------|
-| Aether Navigator | Blind/Low Vision | ✅ Implemented |
-| Live Captioner | Deaf/Hard of Hearing | ✅ Implemented |
-| Motor Assistant | Motor Impairments | ✅ Implemented |
-| Sound Event Detector | Deaf/Hard of Hearing | ✅ Implemented |
-| Medicine Guard | Elderly/Chronic Illness | ✅ Implemented |
+## Status
 
-## Technical Specifications
+Scypheon is in **private alpha**.
 
-| Spec | Value |
-|------|-------|
-| **Min Android SDK** | 28 (Android 9.0) |
-| **Target SDK** | 35 (Android 15) |
-| **LLM Backend** | llama.cpp (ARM64 NEON + GPU) |
-| **Database** | Room + SQLCipher (AES-256) |
-| **Vision** | MediaPipe Vision, ML Kit |
-| **Audio** | MediaPipe Audio Classifier |
-| **Architecture** | arm64-v8a only |
-
-## Roadmap
-
-### Current Version (v1.0-alpha)
-- [x] Core agent loop with tool calling
-- [x] On-device LLM inference
-- [x] Encrypted memory persistence
-- [x] Accessibility suite (blind, deaf, motor)
-- [x] Agentic app control (AccessibilityService)
-
-### Next Release (v1.1)
-- [ ] Vision Language Model integration
-- [ ] Multi-turn planning improvements
-- [ ] Benchmark suite for agent evaluation
-- [ ] Plugin architecture for community tools
-
-### Future
-- [ ] Cross-device sync (encrypted)
-- [ ] Custom model fine-tuning pipeline
-- [ ] Federated learning for accessibility models
-
-## Known Limitations
-
-> Transparency about limitations is essential for trust.
-
-| Limitation | Details |
-|------------|---------|
-| **Model Size** | Limited to 3B parameters due to mobile memory constraints |
-| **Context Length** | 4K tokens max for stable performance |
-| **Tool Reliability** | Web search depends on external APIs |
-| **Accessibility** | Some features require specific hardware (e.g., head tracking needs front camera) |
-| **Language Support** | Optimized for English and Indonesian |
-
-## Benchmarks
-
-*Coming soon: Agent task completion benchmarks on custom evaluation suite.*
-
-Planned metrics:
-- Task completion rate (3-step, 5-step, 10-step)
-- Latency (first token, total response)
-- Memory efficiency
-- Accessibility feature accuracy
+Watch this repository for public release announcements.
 
 ## License
 
-Scypheon is proprietary software. This repository is for project documentation only.
+Proprietary. All rights reserved.
 
-© 2025-2026 ScyLxynFycus. All rights reserved.
+© 2025-2026 ScyLxynFycus
 
 ---
 
 <p align="center">
-  <sub>Built with engineering discipline. Designed for accessibility. Powered by on-device AI.</sub>
+  <sub>AI should work for everyone, not just the privileged few.</sub>
 </p>
